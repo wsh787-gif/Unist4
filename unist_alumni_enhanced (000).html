@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIST Alumni Network - Executive Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --samsung-blue: #1F4E8C;
+            --samsung-dark-blue: #1A4178;
+            --samsung-light-blue: #E8F2FF;
+            --samsung-navy: #0F2D52;
+            --samsung-gray: #F8F9FA;
+            --samsung-silver: #E5E7EB;
+            --samsung-dark: #1F2937;
+            --samsung-text: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --white: #FFFFFF;
+            --shadow: 0 2px 8px rgba(31, 78, 140, 0.1);
+            --shadow-lg: 0 8px 32px rgba(31, 78, 140, 0.15);
+            --shadow-xl: 0 16px 64px rgba(31, 78, 140, 0.2);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #F8F9FA 0%, #E8F2FF 100%);
+            color: var(--samsung-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--samsung-blue) 0%, var(--samsung-navy) 100%);
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--samsung-blue);
+            font-size: 18px;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .user-menu:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            background: var(--white);
+            color: var(--samsung-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .mode-toggle {
+            display: flex;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 4px;
+            margin-right: 16px;
+        }
+
+        .mode-btn {
+            padding: 6px 16px;
+            border: none;
+            background: transparent;
+            color: var(--white);
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            opacity: 0.7;
+        }
+
+        .mode-btn.active {
+            background: var(--white);
+            color: var(--samsung-blue);
+            opacity: 1;
+            font-weight: 600;
+        }
+
+        .mode-btn:hover {
+            opacity: 1;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 32px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 24px;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--samsung-blue);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 48px;
+            border: 2px solid var(--samsung-silver);
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.2s;
+            background: var(--samsung-gray);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--samsung-blue);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(31, 78, 140, 0.1);
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--samsung-text);
+            color: var(--white);
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: none;
+        }
+
+        .search-clear:hover {
+            background: var(--samsung-blue);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--samsung-text);
+            text-align: center;
+        }
+
+        .filter-select {
+            padding: 8px 10px;
+            border: 2px solid var(--samsung-silver);
+            border-radius: 6px;
+            font-size: 12px;
+            background: var(--white);
+            transition: border-color 0.2s;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--samsung-blue);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--samsung-blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--samsung-dark-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--samsung-gray);
+            color: var(--samsung-text);
+            border: 2px solid var(--samsung-silver);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            border-color: var(--samsung-blue);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: var(--white);
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .action-buttons .btn {
+            font-size: 11px;
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .content-header {
+            background: linear-gradient(135deg, var(--samsung-light-blue) 0%, var(--white) 100%);
+            padding: 24px;
+            border-bottom: 1px solid var(--samsung-silver);
+        }
+
+        .content-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--samsung-blue);
+            margin-bottom: 8px;
+        }
+
+        .content-stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            justify-content: flex-start;
+        }
+
+        .stat-item {
+            background: var(--white);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--samsung-silver);
+            flex: 1;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .stat-number {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--samsung-blue);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--samsung-text);
+            margin-top: 2px;
+        }
+
+        .view-controls {
+            display: flex;
+            gap: 8px;
+            background: var(--samsung-gray);
+            padding: 4px;
+            border-radius: 8px;
+            width: fit-content;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--samsung-text);
+        }
+
+        .view-btn.active {
+            background: var(--samsung-blue);
+            color: var(--white);
+        }
+
+        .items-per-page-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 16px;
+        }
+
+        .items-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--samsung-text);
+            white-space: nowrap;
+        }
+
+        .items-select {
+            padding: 6px 10px;
+            border: 2px solid var(--samsung-silver);
+            border-radius: 6px;
+            font-size: 12px;
+            background: var(--white);
+            transition: border-color 0.2s;
+            min-width: 60px;
+        }
+
+        .items-select:focus {
+            outline: none;
+            border-color: var(--samsung-blue);
+        }
+
+        .content-header-controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        /* Member Cards */
+        .members-container {
+            padding: 24px;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 24px;
+        }
+
+        .member-card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 2px solid var(--samsung-silver);
+            cursor: pointer;
+        }
+
+        .member-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--samsung-blue);
+        }
+
+        .member-card.selected {
+            border-color: var(--samsung-blue);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--samsung-blue) 0%, var(--samsung-navy) 100%);
+            padding: 20px;
+            color: var(--white);
+            position: relative;
+        }
+
+        .member-photo {
+            width: 64px;
+            height: 64px;
+            border-radius: 32px;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            border: 3px solid rgba(255,255,255,0.3);
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 29px;
+        }
+
+        .member-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .member-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .member-name-en {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .role-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .info-sections {
+            display: grid;
+            gap: 16px;
+        }
+
+        .info-section {
+            background: var(--samsung-gray);
+            border-radius: 12px;
+            padding: 16px;
+            border-left: 4px solid var(--samsung-blue);
+        }
+
+        .info-section.personal {
+            border-left-color: #3B82F6;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%);
+        }
+
+        .info-section.company {
+            border-left-color: #10B981;
+            background: linear-gradient(135deg, #ECFDF5 0%, #F8FAFC 100%);
+        }
+
+        .info-section.business {
+            border-left-color: #F59E0B;
+            background: linear-gradient(135deg, #FFFBEB 0%, #F8FAFC 100%);
+        }
+
+        .section-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--samsung-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .info-item {
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .info-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--samsung-text);
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            color: var(--samsung-dark);
+        }
+
+        .contact-link {
+            color: var(--samsung-blue);
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Business Types Simple Layout */
+        .business-simple-layout {
+            background: rgba(245, 158, 11, 0.05);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        .business-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 6px;
+            align-items: flex-start;
+        }
+
+        .business-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .business-row-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #D97706;
+            min-width: 35px;
+            flex-shrink: 0;
+        }
+
+        .business-row-values {
+            font-size: 11px;
+            color: var(--samsung-dark);
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .no-business-info {
+            text-align: center;
+            color: var(--samsung-text);
+            font-size: 11px;
+            padding: 16px;
+            font-style: italic;
+        }
+
+        /* Security Features */
+        .security-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(16, 185, 129, 0.9);
+            color: var(--white);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 3000;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: var(--samsung-blue);
+            color: var(--white);
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .modal-body {
+            padding: 32px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-section {
+            margin-bottom: 32px;
+            border-radius: 12px;
+            padding: 24px;
+            border: 2px solid;
+        }
+
+        .form-section.personal-info {
+            background: linear-gradient(135deg, #E8F4FD 0%, #F8FBFF 100%);
+            border-color: #2563EB;
+        }
+
+        .form-section.company-info {
+            background: linear-gradient(135deg, #ECFDF5 0%, #F0FDF4 100%);
+            border-color: #059669;
+        }
+
+        .form-section .section-header {
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid;
+        }
+
+        .form-section.personal-info .section-header {
+            border-bottom-color: #2563EB;
+        }
+
+        .form-section.company-info .section-header {
+            border-bottom-color: #059669;
+        }
+
+        .form-section .section-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-section.personal-info .section-header h3 {
+            color: #2563EB;
+        }
+
+        .form-section.personal-info .section-header h3:before {
+            content: "👤";
+            font-size: 20px;
+        }
+
+        .form-section.company-info .section-header h3 {
+            color: #059669;
+        }
+
+        .form-section.company-info .section-header h3:before {
+            content: "🏢";
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--samsung-text);
+            font-size: 14px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--samsung-silver);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            background: var(--white);
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--samsung-blue);
+            box-shadow: 0 0 0 4px rgba(31, 78, 140, 0.1);
+        }
+
+        .business-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 16px;
+            background: rgba(245, 158, 11, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .business-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            grid-column: 1 / -1;
+            padding: 8px;
+            background: var(--white);
+            border-radius: 6px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .business-pair-header {
+            grid-column: 1 / -1;
+            font-size: 12px;
+            font-weight: 600;
+            color: #D97706;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        /* Photo Upload Styles */
+        .photo-upload-container {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .photo-preview {
+            width: 120px;
+            height: 120px;
+            border: 2px dashed var(--samsung-silver);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--samsung-gray);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .photo-placeholder {
+            text-align: center;
+            color: var(--samsung-text);
+            font-size: 12px;
+            padding: 8px;
+        }
+
+        .photo-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .photo-input {
+            display: none;
+        }
+
+        .photo-controls .btn {
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+
+        /* Pagination Styles */
+        .pagination-container {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pagination-btn {
+            padding: 8px 12px;
+            border: 2px solid var(--samsung-silver);
+            background: var(--white);
+            color: var(--samsung-text);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+            min-width: 40px;
+        }
+
+        .pagination-btn:hover {
+            border-color: var(--samsung-blue);
+            background: var(--samsung-light-blue);
+        }
+
+        .pagination-btn.active {
+            background: var(--samsung-blue);
+            color: var(--white);
+            border-color: var(--samsung-blue);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-dots {
+            padding: 8px 4px;
+            color: var(--samsung-text);
+            font-size: 12px;
+        }
+
+        .pagination-info {
+            font-size: 12px;
+            color: var(--samsung-text);
+            text-align: center;
+        }
+
+        .modal-footer {
+            padding: 24px;
+            background: var(--samsung-gray);
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--samsung-blue);
+            color: var(--white);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 4000;
+            font-weight: 500;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--error); }
+        .toast.warning { background: var(--warning); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 16px;
+            }
+
+            .header-title {
+                font-size: 18px;
+            }
+
+            .dashboard {
+                padding: 16px;
+            }
+
+            .content-stats {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .stat-item {
+                min-width: 70px;
+                padding: 8px 12px;
+            }
+
+            .stat-number {
+                font-size: 16px;
+            }
+
+            .stat-label {
+                font-size: 10px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .business-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .business-pair {
+                grid-template-columns: 1fr;
+            }
+
+            /* 모바일에서 필터를 2x2 그리드로 변경 */
+            .filter-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .filter-label {
+                font-size: 10px;
+            }
+
+            .filter-select {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
+
+            /* 모바일에서 액션 버튼을 세로 배치로 변경 */
+            .action-buttons {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+
+            .action-buttons .btn {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* 매우 작은 화면에서는 세로 배치로 변경 */
+            .filter-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .filter-label {
+                font-size: 11px;
+                text-align: left;
+            }
+
+            /* 매우 작은 화면에서도 액션 버튼은 세로 유지 */
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">UN</div>
+                <div>
+                    <div class="header-title">UNIST Alumni Network</div>
+                    <div class="header-subtitle">Semiconductor AI Executive Program</div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="mode-toggle">
+                    <button class="mode-btn active" id="adminModeBtn" onclick="switchToAdmin()">관리자</button>
+                    <button class="mode-btn" id="userModeBtn" onclick="switchToUser()">사용자</button>
+                </div>
+                <div class="user-menu" onclick="showUserMenu()">
+                    <div class="user-avatar" id="userAvatar">관</div>
+                    <span id="userTitle">관리자</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Search -->
+            <div class="sidebar-section">
+                <div class="section-title">Search & Filter</div>
+                <div class="search-box">
+                    <input type="search" id="searchInput" class="search-input" 
+                           placeholder="성명, 회사명, 직위, 이메일, 전화번호, 역할 검색">
+                    <button type="button" id="searchClear" class="search-clear">✕</button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="sidebar-section">
+                <div class="section-title">Filters</div>
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label class="filter-label">기수</label>
+                        <select id="courseFilter" class="filter-select">
+                            <option value="">전체</option>
+                            <option value="3기">3기</option>
+                            <option value="4기">4기</option>
+                            <option value="5기">5기</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">지역</label>
+                        <select id="regionFilter" class="filter-select">
+                            <option value="">전체</option>
+                            <option value="서울">서울</option>
+                            <option value="경기">경기</option>
+                            <option value="울산">울산</option>
+                            <option value="충북">충북</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">업종</label>
+                        <select id="industryFilter" class="filter-select">
+                            <option value="">전체</option>
+                            <option value="반도체">반도체</option>
+                            <option value="디스플레이">디스플레이</option>
+                            <option value="IT">IT</option>
+                            <option value="제조">제조</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">역할</label>
+                        <select id="roleFilter" class="filter-select">
+                            <option value="">전체</option>
+                            <option value="회장">회장</option>
+                            <option value="부회장">부회장</option>
+                            <option value="이사">이사</option>
+                            <option value="회원">회원</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="clearFilters" class="btn btn-secondary" style="width: 100%; margin-top: 16px;">필터 초기화</button>
+            </div>
+
+            <!-- Actions -->
+            <div class="sidebar-section" id="actionsSection">
+                <div class="section-title">Management</div>
+                <div class="action-buttons">
+                    <button id="addMemberBtn" class="btn btn-success">+ 신규 등록</button>
+                    <button id="editMemberBtn" class="btn btn-warning">정보 수정</button>
+                    <button id="deleteMemberBtn" class="btn btn-error" style="background: var(--error);">회원 삭제</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-header">
+                <div class="content-title">Executive Directory</div>
+                <div class="content-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalCount">5</div>
+                        <div class="stat-label">총 원우</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="filteredCount">5</div>
+                        <div class="stat-label">검색 결과</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">임원진</div>
+                    </div>
+                </div>
+                <div class="content-header-controls">
+                    <div class="view-controls">
+                        <button class="view-btn active" id="cardViewBtn">카드 뷰</button>
+                        <button class="view-btn" id="listViewBtn">목록 뷰</button>
+                    </div>
+                    <div class="items-per-page-control">
+                        <label for="itemsPerPage" class="items-label">표시 개수:</label>
+                        <select id="itemsPerPage" class="items-select">
+                            <option value="5">5개</option>
+                            <option value="10">10개</option>
+                            <option value="20" selected>20개</option>
+                            <option value="50">50개</option>
+                            <option value="100">100개</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="members-container">
+                <div class="members-grid" id="membersDisplay">
+                    <!-- Members will be populated here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">원우 정보 관리</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="memberForm">
+                    <!-- 개인정보 섹션 -->
+                    <div class="form-section personal-info">
+                        <div class="section-header">
+                            <h3>개인정보 사항</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">성명 (국문) *</label>
+                                <input type="text" id="memberName" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">성명 (영문)</label>
+                                <input type="text" id="memberNameEn" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">생년월일</label>
+                                <input type="date" id="memberBirthDate" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">기수 *</label>
+                                <select id="memberCourse" class="form-select" required>
+                                    <option value="">선택하세요</option>
+                                    <option value="3기">3기</option>
+                                    <option value="4기">4기</option>
+                                    <option value="5기">5기</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">휴대전화번호</label>
+                                <input type="tel" id="memberMobile" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">E-mail</label>
+                                <input type="email" id="memberEmail" class="form-input">
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">사진</label>
+                                <div class="photo-upload-container">
+                                    <div class="photo-preview" id="photoPreview">
+                                        <div class="photo-placeholder">
+                                            <span>사진 미리보기</span>
+                                        </div>
+                                    </div>
+                                    <div class="photo-controls">
+                                        <input type="file" id="memberPhoto" class="photo-input" accept="image/*">
+                                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('memberPhoto').click()">사진 선택</button>
+                                        <button type="button" class="btn btn-warning" onclick="removePhoto()">사진 제거</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 회사정보 섹션 -->
+                    <div class="form-section company-info">
+                        <div class="section-header">
+                            <h3>회사정보 사항</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">회사명 *</label>
+                                <input type="text" id="memberCompany" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">부서명</label>
+                                <input type="text" id="memberDepartment" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">직위 *</label>
+                                <input type="text" id="memberTitle" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">회사전화</label>
+                                <input type="tel" id="memberCompanyPhone" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">회사홈페이지</label>
+                                <input type="url" id="memberCompanyWebsite" class="form-input" placeholder="https://">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">상장여부</label>
+                                <select id="memberListingStatus" class="form-select">
+                                    <option value="">선택하세요</option>
+                                    <option value="상장">상장</option>
+                                    <option value="비상장">비상장</option>
+                                    <option value="코스닥">코스닥</option>
+                                    <option value="코스피">코스피</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">회사주소</label>
+                                <input type="text" id="memberAddress" class="form-input">
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">주제품</label>
+                                <input type="text" id="memberMainProduct" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">역할</label>
+                                <select id="memberRole" class="form-select">
+                                    <option value="">선택하세요</option>
+                                    <option value="회장">회장</option>
+                                    <option value="부회장">부회장</option>
+                                    <option value="이사">이사</option>
+                                    <option value="회원">회원</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- 업태/종목 정보 -->
+                        <div class="business-info-grid">
+                            <div style="grid-column: 1 / -1; font-weight: 600; color: #059669; margin-bottom: 8px; text-align: center;">업태 및 종목 정보</div>
+                            
+                            <div class="business-pair">
+                                <div class="business-pair-header">업태/종목 1</div>
+                                <div class="form-group">
+                                    <label class="form-label">업태1</label>
+                                    <input type="text" id="memberBusinessType1" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">종목1</label>
+                                    <input type="text" id="memberBusinessItem1" class="form-input">
+                                </div>
+                            </div>
+                            
+                            <div class="business-pair">
+                                <div class="business-pair-header">업태/종목 2</div>
+                                <div class="form-group">
+                                    <label class="form-label">업태2</label>
+                                    <input type="text" id="memberBusinessType2" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">종목2</label>
+                                    <input type="text" id="memberBusinessItem2" class="form-input">
+                                </div>
+                            </div>
+                            
+                            <div class="business-pair">
+                                <div class="business-pair-header">업태/종목 3</div>
+                                <div class="form-group">
+                                    <label class="form-label">업태3</label>
+                                    <input type="text" id="memberBusinessType3" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">종목3</label>
+                                    <input type="text" id="memberBusinessItem3" class="form-input">
+                                </div>
+                            </div>
+                            
+                            <div class="business-pair">
+                                <div class="business-pair-header">업태/종목 4</div>
+                                <div class="form-group">
+                                    <label class="form-label">업태4</label>
+                                    <input type="text" id="memberBusinessType4" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">종목4</label>
+                                    <input type="text" id="memberBusinessItem4" class="form-input">
+                                </div>
+                            </div>
+                            
+                            <div class="business-pair">
+                                <div class="business-pair-header">업태/종목 5</div>
+                                <div class="form-group">
+                                    <label class="form-label">업태5</label>
+                                    <input type="text" id="memberBusinessType5" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">종목5</label>
+                                    <input type="text" id="memberBusinessItem5" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">취소</button>
+                <button class="btn btn-primary" onclick="saveMember()">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2 class="modal-title">확인</h2>
+                <button class="modal-close" onclick="closeConfirmModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">정말 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeConfirmModal()">취소</button>
+                <button class="btn btn-error" id="confirmAction" style="background: var(--error);">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // UNIST 반도체 AI 최고위과정 실제 원우 데이터
+        let members = [
+            {
+                id: 1,
+                course: "4기",
+                name: "원상희",
+                nameEn: "Won Sang Hee",
+                birthDate: "1975-03-15",
+                role: "회장",
+                mobile: "010-7657-0000",
+                email: "wsh@smv.co.kr",
+                company: "㈜SMV",
+                title: "대표이사",
+                department: "대표이사실",
+                companyPhone: "031-123-4567",
+                companyWebsite: "",
+                listingStatus: "비상장",
+                address: "경기도 화성시 동탄면 산업단지로 123",
+                mainProduct: "반도체장비,디스플레이장비,검사장비",
+                businessType1: "반도체장비",
+                businessItem1: "검사장비",
+                businessType2: "디스플레이장비",
+                businessItem2: "제조장비",
+                businessType3: "AI반도체",
+                businessItem3: "스마트팩토리",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 2,
+                course: "4기",
+                name: "주형윤",
+                nameEn: "Joo Hyung Yoon",
+                birthDate: "1978-07-22",
+                role: "부회장",
+                mobile: "010-8052-0000",
+                email: "juhy@juno-fa.co.kr",
+                company: "㈜주노FA",
+                title: "연구소장",
+                department: "기술연구소",
+                companyPhone: "031-200-1234",
+                companyWebsite: "",
+                listingStatus: "비상장",
+                address: "경기도 평택시 포승읍 신영로 456",
+                mainProduct: "공장자동화장비,로봇시스템,제어시스템",
+                businessType1: "제조업",
+                businessItem1: "공장자동화장비",
+                businessType2: "로봇시스템",
+                businessItem2: "산업용로봇",
+                businessType3: "AI제조",
+                businessItem3: "스마트팩토리",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 3,
+                course: "4기",
+                name: "고현석",
+                nameEn: "Ko Hyun Seok",
+                birthDate: "1980-12-10",
+                role: "사무이사",
+                mobile: "010-9047-0000",
+                email: "hyunsuc.go@qrtkr.co",
+                company: "㈜QRTKR",
+                title: "기술이사",
+                department: "기술개발팀",
+                companyPhone: "031-5000-1234",
+                companyWebsite: "",
+                listingStatus: "비상장",
+                address: "경기도 수원시 영통구 광교로 789",
+                mainProduct: "QR코드솔루션,인식기술,보안시스템",
+                businessType1: "IT서비스",
+                businessItem1: "QR코드솔루션",
+                businessType2: "AI인식기술",
+                businessItem2: "보안시스템",
+                businessType3: "블록체인",
+                businessItem3: "IoT보안",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 4,
+                course: "4기",
+                name: "호정열",
+                nameEn: "Ho Jung Yeol",
+                birthDate: "1976-05-18",
+                role: "이사",
+                mobile: "010-9202-0000",
+                email: "hoger@ycchem.co.kr",
+                company: "㈜YC화학",
+                title: "상무이사",
+                department: "연구개발본부",
+                companyPhone: "02-3777-1234",
+                companyWebsite: "",
+                listingStatus: "코스닥",
+                address: "서울시 금천구 가산디지털1로 145",
+                mainProduct: "반도체소재,디스플레이소재,특수화학",
+                businessType1: "화학소재",
+                businessItem1: "반도체소재",
+                businessType2: "디스플레이소재",
+                businessItem2: "특수화학",
+                businessType3: "신소재개발",
+                businessItem3: "나노기술",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 5,
+                course: "4기",
+                name: "김정호",
+                nameEn: "Kim Jung Ho",
+                birthDate: "1982-09-03",
+                role: "부이사",
+                mobile: "010-9256-0000",
+                email: "jhkim4139@dongjin.com",
+                company: "동진세미켐㈜",
+                title: "수석연구원",
+                department: "기술연구소",
+                companyPhone: "031-784-1234",
+                companyWebsite: "",
+                listingStatus: "코스피",
+                address: "경기도 화성시 마도면 제약단지로 321",
+                mainProduct: "반도체화학소재,디스플레이소재,2차전지소재",
+                businessType1: "화학소재",
+                businessItem1: "반도체화학소재",
+                businessType2: "디스플레이소재",
+                businessItem2: "2차전지소재",
+                businessType3: "AI소재설계",
+                businessItem3: "나노소재",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 6,
+                course: "4기",
+                name: "한민우",
+                nameEn: "Han Min Woo",
+                birthDate: "1979-04-15",
+                role: "총무",
+                mobile: "010-9411-0000",
+                email: "hanmilk@enftech.com",
+                company: "㈜ENF테크놀로지",
+                title: "팀장",
+                department: "기술영업팀",
+                companyPhone: "031-456-7890",
+                companyWebsite: "",
+                listingStatus: "비상장",
+                address: "경기도 안산시 단원구 첨단로 654",
+                mainProduct: "태양광발전장비,에너지저장시스템,전력변환장치",
+                businessType1: "신재생에너지",
+                businessItem1: "태양광발전장비",
+                businessType2: "에너지저장",
+                businessItem2: "ESS",
+                businessType3: "스마트그리드",
+                businessItem3: "전력변환장치",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 7,
+                course: "4기",
+                name: "서동진",
+                nameEn: "Seo Dong Jin",
+                birthDate: "1977-11-28",
+                role: "기획위원",
+                mobile: "010-9565-0000",
+                email: "dongjin.seo@tel.com",
+                company: "도쿄일렉트론코리아㈜",
+                title: "수석엔지니어",
+                department: "기술지원팀",
+                companyPhone: "031-280-5000",
+                companyWebsite: "",
+                listingStatus: "외국계",
+                address: "경기도 화성시 봉담읍 와우리 산업로 147",
+                mainProduct: "반도체제조장비,에칭장비,증착장비",
+                businessType1: "반도체장비",
+                businessItem1: "제조장비",
+                businessType2: "에칭장비",
+                businessItem2: "증착장비",
+                businessType3: "AI반도체",
+                businessItem3: "차세대공정",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 8,
+                course: "3기",
+                name: "박성민",
+                nameEn: "Park Sung Min",
+                birthDate: "1978-03-25",
+                role: "회원",
+                mobile: "010-1234-5678",
+                email: "psm@samsung.com",
+                company: "삼성전자㈜",
+                title: "수석연구원",
+                department: "DS부문 반도체연구소",
+                companyPhone: "031-200-3456",
+                companyWebsite: "",
+                listingStatus: "코스피",
+                address: "경기도 화성시 반월동 삼성로 1",
+                mainProduct: "DRAM,NAND플래시,시스템반도체,이미지센서",
+                businessType1: "반도체제조",
+                businessItem1: "DRAM",
+                businessType2: "메모리반도체",
+                businessItem2: "NAND플래시",
+                businessType3: "AI반도체",
+                businessItem3: "뉴로모픽",
+                businessType4: "차세대메모리",
+                businessItem4: "이미지센서",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 9,
+                course: "4기",
+                name: "이진호",
+                nameEn: "Lee Jin Ho",
+                birthDate: "1981-06-12",
+                role: "학술위원",
+                mobile: "010-9725-0000",
+                email: "leejh@screen-spe.kr",
+                company: "㈜스크린SPE",
+                title: "책임연구원",
+                department: "기술개발실",
+                companyPhone: "031-123-9999",
+                companyWebsite: "",
+                listingStatus: "비상장",
+                address: "경기도 용인시 기흥구 영덕대로 963",
+                mainProduct: "반도체검사장비,웨이퍼처리장비,품질관리시스템",
+                businessType1: "반도체장비",
+                businessItem1: "검사장비",
+                businessType2: "웨이퍼처리",
+                businessItem2: "품질관리시스템",
+                businessType3: "AI검사기술",
+                businessItem3: "머신비전",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 10,
+                course: "4기",
+                name: "리차드",
+                nameEn: "Richard Kim",
+                birthDate: "1983-01-20",
+                role: "홍보위원",
+                mobile: "010-9885-0000",
+                email: "richard@smart-s.net",
+                company: "㈜스마트S",
+                title: "부사장",
+                department: "솔루션사업부",
+                companyPhone: "02-6000-1234",
+                companyWebsite: "",
+                listingStatus: "비상장",
+                address: "서울시 강남구 테헤란로 152",
+                mainProduct: "스마트팩토리솔루션,IoT플랫폼,AI분석시스템",
+                businessType1: "IT솔루션",
+                businessItem1: "스마트팩토리",
+                businessType2: "IoT플랫폼",
+                businessItem2: "AI분석시스템",
+                businessType3: "빅데이터분석",
+                businessItem3: "클라우드컴퓨팅",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 11,
+                course: "4기",
+                name: "천윤석",
+                nameEn: "Chun Yun Seok",
+                birthDate: "1976-08-30",
+                role: "산학위원",
+                mobile: "010-1004-0000",
+                email: "Yunseok.chun@wonik.com",
+                company: "원익IPS㈜",
+                title: "연구소장",
+                department: "기술연구소",
+                companyPhone: "031-5182-1234",
+                companyWebsite: "",
+                listingStatus: "코스닥",
+                address: "경기도 평택시 포승읍 평택항만산업로 85",
+                mainProduct: "반도체제조장비,CVD장비,에칭장비,클리닝장비",
+                businessType1: "반도체장비",
+                businessItem1: "CVD장비",
+                businessType2: "에칭장비",
+                businessItem2: "클리닝장비",
+                businessType3: "AI공정제어",
+                businessItem3: "스마트제조",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 12,
+                course: "4기",
+                name: "김혜람",
+                nameEn: "Kim Hye Ram",
+                birthDate: "1984-02-14",
+                role: "간사",
+                mobile: "010-1020-0000",
+                email: "hyeram@unist.ac.kr",
+                company: "UNIST(울산과학기술원)",
+                title: "교수",
+                department: "반도체소재부품대학원",
+                companyPhone: "052-217-2500",
+                companyWebsite: "",
+                listingStatus: "국립대학",
+                address: "울산광역시 울주군 언양읍 유니스트길 50",
+                mainProduct: "반도체교육,연구개발,기술이전",
+                businessType1: "교육기관",
+                businessItem1: "반도체교육",
+                businessType2: "연구개발",
+                businessItem2: "기술이전",
+                businessType3: "AI반도체교육",
+                businessItem3: "산학협력",
+                businessType4: "",
+                businessItem4: "",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 13,
+                course: "3기",
+                name: "이현정",
+                nameEn: "Lee Hyun Jung",
+                birthDate: "1980-09-17",
+                role: "회원",
+                mobile: "010-2345-6789",
+                email: "hjlee@skhynix.com",
+                company: "SK하이닉스㈜",
+                title: "책임연구원",
+                department: "메모리사업부 기술개발",
+                companyPhone: "031-5000-2345",
+                companyWebsite: "",
+                listingStatus: "코스피",
+                address: "경기도 이천시 부발읍 경충대로 2091",
+                mainProduct: "DRAM,NAND플래시,CIS,차세대메모리",
+                businessType1: "반도체제조",
+                businessItem1: "DRAM",
+                businessType2: "메모리반도체",
+                businessItem2: "NAND플래시",
+                businessType3: "메모리AI",
+                businessItem3: "HBM",
+                businessType4: "뉴럴프로세싱",
+                businessItem4: "CIS",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 14,
+                course: "5기",
+                name: "최재원",
+                nameEn: "Choi Jae Won",
+                birthDate: "1985-12-05",
+                role: "회원",
+                mobile: "010-3456-7890",
+                email: "jwchoi@lgdisplay.com",
+                company: "LG디스플레이㈜",
+                title: "선임연구원",
+                department: "E1사업부 기술연구소",
+                companyPhone: "031-8006-1234",
+                companyWebsite: "",
+                listingStatus: "코스피",
+                address: "경기도 파주시 월롱면 엘지로 245",
+                mainProduct: "OLED패널,LCD패널,플렉서블디스플레이",
+                businessType1: "디스플레이제조",
+                businessItem1: "OLED패널",
+                businessType2: "LCD패널",
+                businessItem2: "플렉서블디스플레이",
+                businessType3: "AI디스플레이",
+                businessItem3: "메타버스",
+                businessType4: "AR/VR",
+                businessItem4: "차세대디스플레이",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            },
+            {
+                id: 15,
+                course: "5기",
+                name: "정민호",
+                nameEn: "Jung Min Ho",
+                birthDate: "1982-07-18",
+                role: "회원",
+                mobile: "010-4567-8901",
+                email: "mhjung@amoled.co.kr",
+                company: "㈜아몰레드",
+                title: "부장",
+                department: "연구개발본부",
+                companyPhone: "055-370-7777",
+                companyWebsite: "",
+                listingStatus: "코스닥",
+                address: "경상남도 창원시 성산구 외동반림로 22",
+                mainProduct: "AMOLED패널,터치센서,디스플레이모듈",
+                businessType1: "디스플레이제조",
+                businessItem1: "AMOLED패널",
+                businessType2: "터치센서",
+                businessItem2: "디스플레이모듈",
+                businessType3: "플렉서블OLED",
+                businessItem3: "폴더블",
+                businessType4: "웨어러블디스플레이",
+                businessItem4: "차세대OLED",
+                businessType5: "",
+                businessItem5: "",
+                lastUpdated: "2024-01-15",
+                securityLevel: "verified",
+                photo: null
+            }
+        ];
+
+        let filteredMembers = [...members];
+        let currentView = 'card';
+        let editingMember = null;
+        let selectedMemberId = null;
+        let itemsPerPage = 20;
+        let currentPage = 1;
+        let isAdminMode = true; // 관리자 모드 플래그
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            sortMembersByRole(); // 초기 정렬 적용
+            updateDisplay();
+            displayMembers();
+            showToast('UNIST Alumni Network에 오신 것을 환영합니다', 'success');
+        });
+
+        function sortMembersByRole() {
+            const roleOrder = {
+                '회장': 1,
+                '부회장': 2,
+                '사무이사': 3,
+                '이사': 4,
+                '부이사': 5,
+                '총무': 6,
+                '기획위원': 7,
+                '학술위원': 8,
+                '홍보위원': 9,
+                '산학위원': 10,
+                '간사': 11,
+                '회원': 12
+            };
+
+            members.sort((a, b) => {
+                const roleA = roleOrder[a.role] || 999;
+                const roleB = roleOrder[b.role] || 999;
+                
+                // 역할이 같으면 이름으로 정렬
+                if (roleA === roleB) {
+                    return a.name.localeCompare(b.name, 'ko');
+                }
+                
+                return roleA - roleB;
+            });
+
+            filteredMembers = [...members];
+        }
+
+        function setupEventListeners() {
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function(e) {
+                const clearBtn = document.getElementById('searchClear');
+                if (e.target.value.length > 0) {
+                    clearBtn.style.display = 'block';
+                } else {
+                    clearBtn.style.display = 'none';
+                }
+                filterMembers();
+            });
+
+            document.getElementById('searchClear').addEventListener('click', function() {
+                searchInput.value = '';
+                this.style.display = 'none';
+                filterMembers();
+            });
+
+            // Filter controls
+            document.getElementById('courseFilter').addEventListener('change', filterMembers);
+            document.getElementById('regionFilter').addEventListener('change', filterMembers);
+            document.getElementById('industryFilter').addEventListener('change', filterMembers);
+            document.getElementById('roleFilter').addEventListener('change', filterMembers);
+            document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
+
+            // View controls
+            document.getElementById('cardViewBtn').addEventListener('click', () => setView('card'));
+            document.getElementById('listViewBtn').addEventListener('click', () => setView('list'));
+
+            // Action buttons
+            document.getElementById('addMemberBtn').addEventListener('click', () => openModal('add'));
+            document.getElementById('editMemberBtn').addEventListener('click', editSelectedMember);
+            document.getElementById('deleteMemberBtn').addEventListener('click', deleteSelectedMember);
+
+            // Modal event handlers
+            document.getElementById('confirmAction').addEventListener('click', confirmDelete);
+
+            // Photo upload handler
+            document.getElementById('memberPhoto').addEventListener('change', handlePhotoUpload);
+
+            // Items per page handler
+            document.getElementById('itemsPerPage').addEventListener('change', function(e) {
+                itemsPerPage = parseInt(e.target.value);
+                currentPage = 1; // 페이지를 첫 페이지로 리셋
+                displayMembers();
+                updatePaginationInfo();
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', handleKeyboardShortcuts);
+        }
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showToast('이미지 파일만 업로드할 수 있습니다', 'error');
+                return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('파일 크기는 5MB 이하로 제한됩니다', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('photoPreview');
+                preview.innerHTML = `<img src="${e.target.result}" alt="사진 미리보기">`;
+                showToast('사진이 업로드되었습니다', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removePhoto() {
+            const preview = document.getElementById('photoPreview');
+            const photoInput = document.getElementById('memberPhoto');
+            
+            // 미리보기 초기화
+            preview.innerHTML = '<div class="photo-placeholder"><span>사진 미리보기</span></div>';
+            // 파일 입력 초기화
+            photoInput.value = '';
+            
+            showToast('사진이 제거되었습니다', 'info');
+        }
+
+        function filterMembers() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const courseFilter = document.getElementById('courseFilter').value;
+            const regionFilter = document.getElementById('regionFilter').value;
+            const industryFilter = document.getElementById('industryFilter').value;
+            const roleFilter = document.getElementById('roleFilter').value;
+
+            filteredMembers = members.filter(member => {
+                const matchesSearch = !searchText || 
+                    (member.name && member.name.toLowerCase().includes(searchText)) ||
+                    (member.nameEn && member.nameEn.toLowerCase().includes(searchText)) ||
+                    (member.company && member.company.toLowerCase().includes(searchText)) ||
+                    (member.title && member.title.toLowerCase().includes(searchText)) ||
+                    (member.department && member.department.toLowerCase().includes(searchText)) ||
+                    (member.email && member.email.toLowerCase().includes(searchText)) ||
+                    (member.mobile && member.mobile.replace(/[-\s]/g, '').includes(searchText.replace(/[-\s]/g, ''))) ||
+                    (member.role && member.role.toLowerCase().includes(searchText)) ||
+                    (member.address && member.address.toLowerCase().includes(searchText));
+
+                const matchesCourse = !courseFilter || member.course === courseFilter;
+                const matchesRegion = !regionFilter || (member.address && member.address.includes(regionFilter));
+                const matchesIndustry = !industryFilter || member.industryType === industryFilter;
+                const matchesRole = !roleFilter || member.role === roleFilter;
+
+                return matchesSearch && matchesCourse && matchesRegion && matchesIndustry && matchesRole;
+            });
+
+            // 필터링 후에도 역할 순서 유지
+            const roleOrder = {
+                '회장': 1,
+                '부회장': 2,
+                '사무이사': 3,
+                '이사': 4,
+                '부이사': 5,
+                '총무': 6,
+                '기획위원': 7,
+                '학술위원': 8,
+                '홍보위원': 9,
+                '산학위원': 10,
+                '간사': 11,
+                '회원': 12
+            };
+
+            filteredMembers.sort((a, b) => {
+                const roleA = roleOrder[a.role] || 999;
+                const roleB = roleOrder[b.role] || 999;
+                
+                // 역할이 같으면 이름으로 정렬
+                if (roleA === roleB) {
+                    return a.name.localeCompare(b.name, 'ko');
+                }
+                
+                return roleA - roleB;
+            });
+
+            currentPage = 1; // 필터 변경 시 첫 페이지로 리셋
+            updateDisplay();
+            displayMembers();
+        }
+
+        function updateDisplay() {
+            document.getElementById('totalCount').textContent = members.length;
+            document.getElementById('filteredCount').textContent = filteredMembers.length;
+        }
+
+        function setView(view) {
+            currentView = view;
+            document.getElementById('cardViewBtn').classList.toggle('active', view === 'card');
+            document.getElementById('listViewBtn').classList.toggle('active', view === 'list');
+            displayMembers();
+        }
+
+        function displayMembers() {
+            const container = document.getElementById('membersDisplay');
+            
+            if (filteredMembers.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px; color: var(--samsung-text); grid-column: 1 / -1;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                        <h3>검색 결과가 없습니다</h3>
+                        <p>다른 검색어나 필터를 시도해보세요</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 페이지네이션 적용
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedMembers = filteredMembers.slice(startIndex, endIndex);
+
+            if (currentView === 'card') {
+                container.className = 'members-grid';
+                container.innerHTML = paginatedMembers.map(member => createMemberCard(member)).join('');
+            } else {
+                container.className = 'members-list';
+                container.innerHTML = paginatedMembers.map(member => createMemberListItem(member)).join('');
+            }
+
+            // 페이지네이션 정보 업데이트
+            updatePaginationInfo();
+        }
+
+        function updatePaginationInfo() {
+            const totalItems = filteredMembers.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const startItem = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+            const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+
+            // 현재 페이지 정보를 표시할 요소가 있다면 업데이트
+            const paginationInfo = document.getElementById('paginationInfo');
+            if (paginationInfo) {
+                paginationInfo.textContent = `${startItem}-${endItem} / ${totalItems}`;
+            }
+
+            // 페이지 버튼들 생성/업데이트
+            updatePaginationButtons(totalPages);
+        }
+
+        function updatePaginationButtons(totalPages) {
+            let paginationContainer = document.getElementById('paginationContainer');
+            
+            // 페이지네이션 컨테이너가 없으면 생성
+            if (!paginationContainer) {
+                paginationContainer = document.createElement('div');
+                paginationContainer.id = 'paginationContainer';
+                paginationContainer.className = 'pagination-container';
+                
+                const membersContainer = document.querySelector('.members-container');
+                membersContainer.appendChild(paginationContainer);
+            }
+
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = '<div class="pagination-controls">';
+            
+            // 이전 페이지 버튼
+            if (currentPage > 1) {
+                paginationHTML += `<button class="pagination-btn" onclick="goToPage(${currentPage - 1})">‹ 이전</button>`;
+            }
+
+            // 페이지 번호 버튼들
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage < maxVisiblePages - 1) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            if (startPage > 1) {
+                paginationHTML += `<button class="pagination-btn" onclick="goToPage(1)">1</button>`;
+                if (startPage > 2) {
+                    paginationHTML += `<span class="pagination-dots">...</span>`;
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const isActive = i === currentPage ? 'active' : '';
+                paginationHTML += `<button class="pagination-btn ${isActive}" onclick="goToPage(${i})">${i}</button>`;
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    paginationHTML += `<span class="pagination-dots">...</span>`;
+                }
+                paginationHTML += `<button class="pagination-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            }
+
+            // 다음 페이지 버튼
+            if (currentPage < totalPages) {
+                paginationHTML += `<button class="pagination-btn" onclick="goToPage(${currentPage + 1})">다음 ›</button>`;
+            }
+
+            paginationHTML += '</div>';
+            
+            // 페이지 정보 추가
+            const totalItems = filteredMembers.length;
+            const startItem = (currentPage - 1) * itemsPerPage + 1;
+            const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+            paginationHTML += `<div class="pagination-info">${startItem}-${endItem} / ${totalItems}개 표시</div>`;
+
+            paginationContainer.innerHTML = paginationHTML;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            displayMembers();
+        }
+
+        function getBusinessTypesHtml(member) {
+            const businessTypes = [];
+            const businessItems = [];
+            
+            for (let i = 1; i <= 5; i++) {
+                const type = member[`businessType${i}`];
+                const item = member[`businessItem${i}`];
+                if (type) businessTypes.push(type);
+                if (item) businessItems.push(item);
+            }
+            
+            if (businessTypes.length === 0 && businessItems.length === 0) {
+                return '<div class="no-business-info">등록된 업태/종목 정보가 없습니다</div>';
+            }
+            
+            return `
+                <div class="business-simple-layout">
+                    ${businessTypes.length > 0 ? `
+                        <div class="business-row">
+                            <span class="business-row-label">업태:</span>
+                            <span class="business-row-values">${businessTypes.join(', ')}</span>
+                        </div>
+                    ` : ''}
+                    ${businessItems.length > 0 ? `
+                        <div class="business-row">
+                            <span class="business-row-label">종목:</span>
+                            <span class="business-row-values">${businessItems.join(', ')}</span>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function createMemberCard(member) {
+            const cursorStyle = isAdminMode ? 'cursor: pointer;' : 'cursor: default;';
+            const clickHandler = isAdminMode ? `onclick="selectMember(${member.id})"` : '';
+            
+            return `
+                <div class="member-card ${isAdminMode && selectedMemberId === member.id ? 'selected' : ''}" 
+                     ${clickHandler} style="${cursorStyle}">
+                    <div class="card-header">
+                        ${member.securityLevel === 'verified' ? '<div class="security-badge">✓ 인증됨</div>' : ''}
+                        <div class="member-photo">
+                            ${member.photo ? `<img src="${member.photo}" alt="${member.name}">` : member.name.charAt(0)}
+                        </div>
+                        <div class="member-info">
+                            <div>
+                                <div class="member-name">${member.name}</div>
+                                <div class="member-name-en">${member.nameEn || ''}</div>
+                            </div>
+                            ${member.role ? `<div class="role-badge">${member.role}</div>` : ''}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-sections">
+                            <div class="info-section personal">
+                                <div class="section-header">👤 개인정보</div>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <div class="info-label">기수</div>
+                                        <div class="info-value">${member.course}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">생년월일</div>
+                                        <div class="info-value">${member.birthDate || '-'}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">휴대폰</div>
+                                        <div class="info-value">${member.mobile || '-'}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">이메일</div>
+                                        <div class="info-value">
+                                            ${member.email ? `<a href="mailto:${member.email}" class="contact-link">${member.email}</a>` : '-'}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info-section company">
+                                <div class="section-header">🏢 회사정보</div>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <div class="info-label">회사</div>
+                                        <div class="info-value">${member.company}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">직위</div>
+                                        <div class="info-value">${member.title}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">부서</div>
+                                        <div class="info-value">${member.department || '-'}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">회사전화</div>
+                                        <div class="info-value">${member.companyPhone || '-'}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">홈페이지</div>
+                                        <div class="info-value">
+                                            ${member.companyWebsite ? `<a href="${member.companyWebsite}" target="_blank" class="contact-link">링크</a>` : '-'}
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">상장여부</div>
+                                        <div class="info-value">${member.listingStatus || '-'}</div>
+                                    </div>
+                                    <div class="info-item full-width">
+                                        <div class="info-label">주제품</div>
+                                        <div class="info-value">${member.mainProduct || '-'}</div>
+                                    </div>
+                                    <div class="info-item full-width">
+                                        <div class="info-label">주소</div>
+                                        <div class="info-value">${member.address || '-'}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info-section business">
+                                <div class="section-header">📊 업태/종목 정보</div>
+                                ${getBusinessTypesHtml(member)}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createMemberListItem(member) {
+            const cursorStyle = isAdminMode ? 'cursor: pointer;' : 'cursor: default;';
+            const clickHandler = isAdminMode ? `onclick="selectMember(${member.id})"` : '';
+            const borderColor = isAdminMode && selectedMemberId === member.id ? 'var(--samsung-blue)' : 'var(--samsung-silver)';
+            
+            return `
+                <div class="list-item ${isAdminMode && selectedMemberId === member.id ? 'selected' : ''}" 
+                     ${clickHandler}
+                     style="padding: 16px; margin: 8px 0; border-radius: 8px; background: var(--white); box-shadow: var(--shadow); border: 2px solid ${borderColor}; ${cursorStyle}">
+                    <div class="member-info">
+                        <strong>${member.name}</strong> ${member.role ? `<span style="background: var(--samsung-blue); color: var(--white); padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 8px;">${member.role}</span>` : ''}
+                        <br>
+                        ${member.company} - ${member.title}
+                        <br>
+                        <small style="color: var(--samsung-text);">${member.email || ''} | ${member.mobile || ''}</small>
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectMember(memberId) {
+            if (!isAdminMode) return; // 사용자 모드에서는 선택 불가
+            selectedMemberId = selectedMemberId === memberId ? null : memberId;
+            displayMembers();
+        }
+
+        function openModal(mode, member = null) {
+            editingMember = member;
+            const modal = document.getElementById('memberModal');
+            const title = document.querySelector('.modal-title');
+            
+            if (mode === 'edit' && member) {
+                title.textContent = '원우 정보 수정';
+                populateForm(member);
+            } else {
+                title.textContent = '신규 원우 등록';
+                clearForm();
+            }
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('memberModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            editingMember = null;
+            
+            // 파일 입력 필드도 초기화
+            const photoInput = document.getElementById('memberPhoto');
+            if (photoInput) {
+                photoInput.value = '';
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('memberForm').reset();
+            // 사진 미리보기도 초기화
+            const preview = document.getElementById('photoPreview');
+            if (preview) {
+                preview.innerHTML = '<div class="photo-placeholder"><span>사진 미리보기</span></div>';
+            }
+        }
+
+        function populateForm(member) {
+            document.getElementById('memberName').value = member.name || '';
+            document.getElementById('memberNameEn').value = member.nameEn || '';
+            document.getElementById('memberBirthDate').value = member.birthDate || '';
+            document.getElementById('memberCourse').value = member.course || '';
+            document.getElementById('memberMobile').value = member.mobile || '';
+            document.getElementById('memberEmail').value = member.email || '';
+            document.getElementById('memberCompany').value = member.company || '';
+            document.getElementById('memberDepartment').value = member.department || '';
+            document.getElementById('memberTitle').value = member.title || '';
+            document.getElementById('memberCompanyPhone').value = member.companyPhone || '';
+            document.getElementById('memberCompanyWebsite').value = member.companyWebsite || '';
+            document.getElementById('memberListingStatus').value = member.listingStatus || '';
+            document.getElementById('memberAddress').value = member.address || '';
+            document.getElementById('memberMainProduct').value = member.mainProduct || '';
+            document.getElementById('memberBusinessType1').value = member.businessType1 || '';
+            document.getElementById('memberBusinessItem1').value = member.businessItem1 || '';
+            document.getElementById('memberBusinessType2').value = member.businessType2 || '';
+            document.getElementById('memberBusinessItem2').value = member.businessItem2 || '';
+            document.getElementById('memberBusinessType3').value = member.businessType3 || '';
+            document.getElementById('memberBusinessItem3').value = member.businessItem3 || '';
+            document.getElementById('memberBusinessType4').value = member.businessType4 || '';
+            document.getElementById('memberBusinessItem4').value = member.businessItem4 || '';
+            document.getElementById('memberBusinessType5').value = member.businessType5 || '';
+            document.getElementById('memberBusinessItem5').value = member.businessItem5 || '';
+            document.getElementById('memberRole').value = member.role || '';
+            
+            // 사진 미리보기 설정
+            const preview = document.getElementById('photoPreview');
+            if (member.photo) {
+                preview.innerHTML = `<img src="${member.photo}" alt="${member.name} 사진">`;
+            } else {
+                preview.innerHTML = '<div class="photo-placeholder"><span>사진 미리보기</span></div>';
+            }
+        }
+
+        function saveMember() {
+            // 사진 데이터 가져오기 - 업로드된 새 사진이 있는지 먼저 확인
+            const photoInput = document.getElementById('memberPhoto');
+            const photoPreview = document.getElementById('photoPreview');
+            const photoImg = photoPreview.querySelector('img');
+            
+            let photoData = null;
+            
+            // 새로운 사진이 업로드되었는지 확인
+            if (photoInput.files && photoInput.files[0]) {
+                // 새 파일이 선택된 경우, 미리보기의 이미지 사용
+                photoData = photoImg ? photoImg.src : null;
+            } else if (editingMember && photoImg && photoImg.src) {
+                // 편집 모드이고 기존 사진이 있는 경우
+                photoData = photoImg.src;
+            } else if (editingMember && editingMember.photo) {
+                // 편집 모드이고 미리보기에 이미지가 없지만 기존 데이터에 사진이 있는 경우
+                photoData = editingMember.photo;
+            }
+            
+            const formData = {
+                name: document.getElementById('memberName').value,
+                nameEn: document.getElementById('memberNameEn').value,
+                birthDate: document.getElementById('memberBirthDate').value,
+                course: document.getElementById('memberCourse').value,
+                mobile: document.getElementById('memberMobile').value,
+                email: document.getElementById('memberEmail').value,
+                company: document.getElementById('memberCompany').value,
+                department: document.getElementById('memberDepartment').value,
+                title: document.getElementById('memberTitle').value,
+                companyPhone: document.getElementById('memberCompanyPhone').value,
+                companyWebsite: document.getElementById('memberCompanyWebsite').value,
+                listingStatus: document.getElementById('memberListingStatus').value,
+                address: document.getElementById('memberAddress').value,
+                mainProduct: document.getElementById('memberMainProduct').value,
+                businessType1: document.getElementById('memberBusinessType1').value,
+                businessItem1: document.getElementById('memberBusinessItem1').value,
+                businessType2: document.getElementById('memberBusinessType2').value,
+                businessItem2: document.getElementById('memberBusinessItem2').value,
+                businessType3: document.getElementById('memberBusinessType3').value,
+                businessItem3: document.getElementById('memberBusinessItem3').value,
+                businessType4: document.getElementById('memberBusinessType4').value,
+                businessItem4: document.getElementById('memberBusinessItem4').value,
+                businessType5: document.getElementById('memberBusinessType5').value,
+                businessItem5: document.getElementById('memberBusinessItem5').value,
+                role: document.getElementById('memberRole').value,
+                photo: photoData,
+                lastUpdated: new Date().toISOString().split('T')[0],
+                securityLevel: 'verified'
+            };
+
+            // Validation
+            if (!formData.name || !formData.course || !formData.company || !formData.title) {
+                showToast('필수 항목을 모두 입력해주세요', 'error');
+                return;
+            }
+
+            if (editingMember) {
+                // Update existing member
+                const index = members.findIndex(m => m.id === editingMember.id);
+                if (index !== -1) {
+                    members[index] = { ...members[index], ...formData };
+                    sortMembersByRole(); // 수정 후 재정렬
+                    showToast('원우 정보가 수정되었습니다', 'success');
+                }
+            } else {
+                // Add new member
+                const newMember = {
+                    id: Math.max(...members.map(m => m.id)) + 1,
+                    ...formData
+                };
+                members.push(newMember);
+                sortMembersByRole(); // 추가 후 재정렬
+                showToast('새 원우가 등록되었습니다', 'success');
+            }
+
+            closeModal();
+            filterMembers();
+        }
+
+        function editSelectedMember() {
+            if (!selectedMemberId) {
+                showToast('수정할 원우를 선택해주세요', 'warning');
+                return;
+            }
+            
+            const member = members.find(m => m.id === selectedMemberId);
+            if (member) {
+                openModal('edit', member);
+            }
+        }
+
+        function deleteSelectedMember() {
+            if (!selectedMemberId) {
+                showToast('삭제할 원우를 선택해주세요', 'warning');
+                return;
+            }
+            
+            const member = members.find(m => m.id === selectedMemberId);
+            if (member) {
+                showConfirmModal(`"${member.name}" 원우 정보를 삭제하시겠습니까?`, () => {
+                    const index = members.findIndex(m => m.id === selectedMemberId);
+                    if (index !== -1) {
+                        members.splice(index, 1);
+                        selectedMemberId = null;
+                        filterMembers();
+                        showToast('원우 정보가 삭제되었습니다', 'success');
+                    }
+                    closeConfirmModal();
+                });
+            }
+        }
+
+        function showConfirmModal(message, onConfirm) {
+            document.getElementById('confirmMessage').textContent = message;
+            document.getElementById('confirmModal').style.display = 'block';
+            document.getElementById('confirmAction').onclick = onConfirm;
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+            document.getElementById('confirmAction').onclick = null;
+        }
+
+        function confirmDelete() {
+            // This will be overridden by showConfirmModal
+        }
+
+        function clearAllFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchClear').style.display = 'none';
+            document.getElementById('courseFilter').value = '';
+            document.getElementById('regionFilter').value = '';
+            document.getElementById('industryFilter').value = '';
+            document.getElementById('roleFilter').value = '';
+            filterMembers();
+        }
+
+        function handleKeyboardShortcuts(event) {
+            if (event.ctrlKey || event.metaKey) {
+                switch(event.key) {
+                    case 'f':
+                        event.preventDefault();
+                        document.getElementById('searchInput').focus();
+                        break;
+                    case 'n':
+                        event.preventDefault();
+                        openModal('add');
+                        break;
+                    case 'e':
+                        if (selectedMemberId) {
+                            event.preventDefault();
+                            editSelectedMember();
+                        }
+                        break;
+                    case 'Delete':
+                    case 'Backspace':
+                        if (selectedMemberId) {
+                            event.preventDefault();
+                            deleteSelectedMember();
+                        }
+                        break;
+                }
+            }
+        }
+
+        function switchToAdmin() {
+            isAdminMode = true;
+            updateModeDisplay();
+            showToast('관리자 모드로 전환되었습니다', 'success');
+        }
+
+        function switchToUser() {
+            isAdminMode = false;
+            selectedMemberId = null; // 선택 해제
+            updateModeDisplay();
+            displayMembers(); // 선택 해제 반영을 위해 다시 렌더링
+            showToast('사용자 모드로 전환되었습니다', 'info');
+        }
+
+        function updateModeDisplay() {
+            const adminBtn = document.getElementById('adminModeBtn');
+            const userBtn = document.getElementById('userModeBtn');
+            const userAvatar = document.getElementById('userAvatar');
+            const userTitle = document.getElementById('userTitle');
+            const actionsSection = document.getElementById('actionsSection');
+
+            if (isAdminMode) {
+                adminBtn.classList.add('active');
+                userBtn.classList.remove('active');
+                userAvatar.textContent = '관';
+                userTitle.textContent = '관리자';
+                actionsSection.style.display = 'block';
+            } else {
+                adminBtn.classList.remove('active');
+                userBtn.classList.add('active');
+                userAvatar.textContent = '사';
+                userTitle.textContent = '사용자';
+                actionsSection.style.display = 'none';
+            }
+        }
+
+        function showUserMenu() {
+            const currentMode = isAdminMode ? '관리자' : '사용자';
+            showToast(`현재 ${currentMode} 모드입니다`, 'info');
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
