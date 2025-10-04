@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>회원 관리 (FileReader 자동)</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; }
+  .member-card { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+  input { margin: 3px; padding: 3px; width: 200px; }
+  img { max-width: 100px; display: block; margin-top: 5px; }
+  button { margin: 3px; padding: 5px 10px; }
+</style>
+</head>
+<body>
+<h1><a href="unist_main.html">MAIN</a></h1>
+
+<div>
+  <p>1. 먼저 members.json 파일을 선택해주세요. 자동으로 불러옵니다.</p>
+  <p>2. 회원 수정 혹은 추가 후 [데이터저장] 하세요. (보안 관계상 브라우저 지정 폴더로 저장됩니다. members.json을 옮겨 주세요)</p>
+  <h2>회원 읽기</h2>
+  <input type="file" id="fileInput" accept=".json">
+</div>
+
+<div id="members-list"></div>
+
+<h2>회원 추가</h2>
+<input type="text" id="newName" placeholder="이름">
+<input type="text" id="newYear" placeholder="기수">
+<input type="text" id="newMobile" placeholder="전화">
+<input type="text" id="newEmail" placeholder="이메일">
+<input type="text" id="newAddress" placeholder="주소"><br>
+<input type="text" id="newCompany" placeholder="회사">
+<input type="text" id="newTitle" placeholder="직위">
+<input type="text" id="newDepartment" placeholder="부서">
+<input type="text" id="newIndustry" placeholder="업종">
+사진: <input type="file" id="newPhoto" accept="image/*">
+<button onclick="addMember()">추가</button>
+
+<h2>회원 데이터 저장</h2>
+<button onclick="saveJSON()">회원 저장</button>
+
+<script>
+let members = [];
+
+// 파일 선택 시 자동 읽기
+document.getElementById("fileInput").addEventListener("change", function() {
+  const file = this.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      members = JSON.parse(e.target.result);
+      render();
+    } catch(err) {
+      alert("JSON 형식이 올바르지 않습니다.");
+      console.error(err);
+    }
+  };
+  reader.readAsText(file);
+});
+
+function render() {
+  const container = document.getElementById('members-list');
+  container.innerHTML = '';
+  members.forEach((m, index) => {
+    const card = document.createElement('div');
+    card.className = 'member-card';
+    const imgTag = m.photo ? `<img src="${m.photo}" alt="사진">` : '';
+    card.innerHTML = `
+      <table width="100%">
+      <tr>
+      <td width="40%">
+      <b>개인정보 : </b><br>
+      <b>ID: ${m.id}</b><br>
+      이름: <input value="${m.name}" onchange="updateMember(${index}, 'name', this.value)"><br>
+      기수: <input value="${m.year}" onchange="updateMember(${index}, 'year', this.value)"><br>
+      전화: <input value="${m.mobile}" onchange="updateMember(${index}, 'mobile', this.value)"><br>
+      이메일: <input value="${m.email}" onchange="updateMember(${index}, 'email', this.value)"><br>
+      주소: <input value="${m.address}" onchange="updateMember(${index}, 'address', this.value)"><br>
+      </td>
+      <td width="40%">
+      <b>회사정보 : </b><br>
+      회사: <input value="${m.company}" onchange="updateMember(${index}, 'company', this.value)"><br>
+      직위: <input value="${m.title}" onchange="updateMember(${index}, 'title', this.value)"><br>
+      부서: <input value="${m.department}" onchange="updateMember(${index}, 'department', this.value)"><br>
+      업종: <input value="${m.industry}" onchange="updateMember(${index}, 'industry', this.value)"><br>
+      사진: <input type="file" onchange="changePhoto(event, ${index})"><br>
+      ${imgTag}
+      </td>
+      <td width="20%">
+      <button onclick="deleteMember(${index})">삭제</button>
+      </td>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function updateMember(index, field, value) {
+  members[index][field] = value;
+}
+
+function changePhoto(event, index) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    members[index].photo = e.target.result;
+    render();
+  };
+  reader.readAsDataURL(file);
+}
+
+function addMember() {
+  const name = document.getElementById("newName").value.trim();
+  const year = document.getElementById("newYear").value.trim();
+  const mobile = document.getElementById("newMobile").value.trim();
+  const email = document.getElementById("newEmail").value.trim();
+  const address = document.getElementById("newAddress").value.trim();
+  const company = document.getElementById("newCompany").value.trim();
+  const title = document.getElementById("newTitle").value.trim();
+  const department = document.getElementById("newDepartment").value.trim();
+  const industry = document.getElementById("newIndustry").value.trim();
+  const photoFile = document.getElementById("newPhoto").files[0];
+
+  if (!name) { alert("이름은 필수입니다."); return; }
+
+  const newMember = {
+    id: members.length ? members[members.length - 1].id + 1 : 1,
+    course: "4기",
+    name, title, company, address, photo: ""
+  };
+
+  if (photoFile) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      newMember.photo = e.target.result;
+      members.push(newMember);
+      render();
+      resetAddForm();
+    };
+    reader.readAsDataURL(photoFile);
+  } else {
+    members.push(newMember);
+    render();
+    resetAddForm();
+  }
+}
+
+function resetAddForm() {
+  document.getElementById("newName").value = "";
+  document.getElementById("newYear").value = "";
+  document.getElementById("newMobile").value = "";
+  document.getElementById("newEmail").value = "";
+  document.getElementById("newAddress").value = "";
+  document.getElementById("newCompany").value = "";
+  document.getElementById("newTitle").value = "";
+  document.getElementById("newDepartment").value = "";
+  document.getElementById("newIndustry").value = "";
+  document.getElementById("newPhoto").value = "";
+}
+
+function deleteMember(index) {
+  if (confirm("정말 삭제하시겠습니까?")) {
+    members.splice(index, 1);
+    render();
+  }
+}
+
+function saveJSON() {
+  const blob = new Blob([JSON.stringify(members, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "members.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
