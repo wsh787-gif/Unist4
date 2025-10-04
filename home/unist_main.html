@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIST 반도체 AI 최고위과정 원우수첩</title>
+    <link rel="stylesheet" href="members.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>UNIST 반도체 AI 최고위과정 원우수첩</h1>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <input type="file" id="fileInput" accept=".json">
+                </div>
+                <div class="stat-item">
+                    총 <span id="totalCount">0</span>명
+                </div>
+                <div class="stat-item">
+                    <span id="filteredCount">0</span>개 결과
+                </div>
+            </div>
+        </header>
+
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="section">
+                    <div class="section-title">🔍 검색</div>
+                    <input type="text" id="searchInput" class="search-input" placeholder="이름, 회사명 검색">
+                    <div id="activeFilters" class="active-filters"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🎛️ 필터</div>
+                    <div class="filters-compact">
+                        <div class="filter-group">
+                            <label class="filter-label">기수</label>
+                            <select id="courseFilter" class="filter-select">
+                                <option value="">전체</option>
+                                <option value="4기">4기</option>
+                                <option value="교수진">교수진</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">지역</label>
+                            <select id="regionFilter" class="filter-select">
+                                <option value="">전체</option>
+                                <option value="경기도">경기도</option>
+                                <option value="인천">인천</option>
+                                <option value="경상북도">경상북도</option>
+                                <option value="평택시">평택시</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">업종</label>
+                            <select id="industryFilter" class="filter-select">
+                                <option value="">전체</option>
+                                <option value="반도체">반도체</option>
+                                <option value="화학약품">화학약품</option>
+                                <option value="교육">교육</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="clearFilters" class="btn btn-secondary clear-btn">필터 초기화</button>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⚙️ 관리</div>
+                    <button id="addMemberBtn" class="btn btn-success">+ 원우 추가</button>
+                    <button id="editMemberBtn" class="btn btn-primary">정보 수정</button>
+                    <a href="unist_member.html">
+                    <button class="btn btn-success">+ 원우 관리</button>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="content-header">
+                <div class="view-toggle">
+                    <button class="view-btn active" id="cardViewBtn">카드</button>
+                    <button class="view-btn" id="listViewBtn">목록</button>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" id="prevBtn" type="button">‹</button>
+                    <div class="page-info">
+                        <span id="currentPage">1</span> / <span id="totalPages">13</span>
+                    </div>
+                    <button class="nav-btn" id="nextBtn" type="button">›</button>
+                </div>
+            </div>
+
+            <div class="content" id="content">
+                <!-- 내용이 여기에 표시됩니다 -->
+            </div>
+        </main>
+    </div>
+
+    <!-- 모달 -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">원우 추가</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="memberForm">
+                    <div class="photo-upload-section">
+                        <div class="photo-preview" id="photoPreview" onclick="clickPhotoUpload()">
+                            <div class="photo-preview-text">📷</div>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            <input type="file" id="photoInput" accept="image/*" onchange="onPhotoSelected(this)">
+                            <button type="button" class="photo-remove-btn" onclick="clearPhoto()">🗑️ 사진 제거</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">기수 *</label>
+                        <select id="memberCourse" class="form-select" required>
+                            <option value="">선택</option>
+                            <option value="4기">4기</option>
+                            <option value="교수진">교수진</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">이름 *</label>
+                            <input type="text" id="memberName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">영문명</label>
+                            <input type="text" id="memberNameEn" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">회사 *</label>
+                            <input type="text" id="memberCompany" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">직위</label>
+                                <input type="text" id="memberTitle" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">전화</label>
+                            <input type="tel" id="memberMobile" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">이메일</label>
+                            <input type="email" id="memberEmail" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">주소</label>
+                        <input type="text" id="memberAddress" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">웹사이트</label>
+                        <input type="url" id="memberWebsite" class="form-input">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">취소</button>
+                <button class="btn btn-primary" onclick="saveMember()">저장</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+     let members = [];
+    let filteredMembers = [];
+    let currentIndex = 0;
+    let currentView = 'card';
+    let editingMember = null;
+    let currentPhoto = null;
+
+<!--    document.addEventListener('DOMContentLoaded', async function() {-->
+<!--        await loadMembers();-->
+<!--        setupEventListeners();-->
+<!--        updateDisplay();-->
+<!--        displayContent();-->
+<!--    });-->
+
+    document.addEventListener('DOMContentLoaded', function() {
+        setupEventListeners();
+    });
+
+
+    // 🔹 members.json 불러오기
+    async function loadMembers() {
+        try {
+            const response = await fetch('members.json');
+            if (!response.ok) throw new Error('JSON 파일을 불러오지 못했습니다.');
+            members = await response.json();
+            filteredMembers = [...members];
+            console.log("✅ members.json 불러오기 성공:", members);
+        } catch (error) {
+            console.error("❌ members.json 불러오기 실패:", error);
+            members = [];
+            filteredMembers = [];
+        }
+    }
+
+    // 🔹 파일 선택 이벤트
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                members = JSON.parse(e.target.result);
+                filteredMembers = [...members];
+                currentIndex = 0;
+                console.log("✅ 파일 불러오기 성공:", members);
+                updateDisplay();
+                displayContent();
+            } catch (err) {
+                console.error("❌ JSON 파싱 실패:", err);
+                alert("잘못된 JSON 파일입니다.");
+            }
+        };
+        reader.readAsText(file);
+    });
+
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', filterMembers);
+            document.getElementById('courseFilter').addEventListener('change', filterMembers);
+            document.getElementById('regionFilter').addEventListener('change', filterMembers);
+            document.getElementById('industryFilter').addEventListener('change', filterMembers);
+            document.getElementById('clearFilters').addEventListener('click', clearFilters);
+
+            document.getElementById('cardViewBtn').addEventListener('click', () => setView('card'));
+            document.getElementById('listViewBtn').addEventListener('click', () => setView('list'));
+
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                prevMember();
+            });
+
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                nextMember();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (currentView === 'card') {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        prevMember();
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        nextMember();
+                    }
+                }
+            });
+
+            document.getElementById('addMemberBtn').addEventListener('click', openModal);
+            document.getElementById('editMemberBtn').addEventListener('click', editMember);
+        }
+
+        function clickPhotoUpload() {
+            console.log('📷 사진 미리보기 클릭됨');
+            const input = document.getElementById('photoInput');
+            if (input) {
+                input.click();
+                console.log('파일 입력 클릭 실행');
+            }
+        }
+
+        function onPhotoSelected(input) {
+            console.log('📱 파일 선택됨:', input.files);
+
+            if (!input.files || !input.files[0]) {
+                console.log('선택된 파일이 없습니다');
+                return;
+            }
+
+            const file = input.files[0];
+            console.log('파일 정보:', {
+                name: file.name,
+                size: (file.size / 1024 / 1024).toFixed(2) + 'MB',
+                type: file.type
+            });
+
+            if (!file.type.startsWith('image/')) {
+                alert('이미지 파일만 선택해주세요.');
+                input.value = '';
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                alert('파일 크기는 10MB 이하여야 합니다.');
+                input.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                console.log('✅ 파일 읽기 성공');
+                currentPhoto = e.target.result;
+                updatePhotoPreview();
+                showToast(`${file.name} 업로드 완료!`, 'success');
+            };
+
+            reader.onerror = function() {
+                console.error('❌ 파일 읽기 실패');
+                alert('파일을 읽는데 실패했습니다.');
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function clearPhoto() {
+            console.log('🗑️ 사진 제거');
+            currentPhoto = null;
+            updatePhotoPreview();
+
+            const input = document.getElementById('photoInput');
+            if (input) {
+                input.value = '';
+            }
+
+            showToast('사진이 제거되었습니다.', 'warning');
+        }
+
+        function updatePhotoPreview() {
+            const preview = document.getElementById('photoPreview');
+            if (!preview) return;
+
+            if (currentPhoto) {
+                console.log('🖼️ 사진 미리보기 업데이트');
+                preview.innerHTML = `<img src="${currentPhoto}" alt="선택된 사진">`;
+            } else {
+                preview.innerHTML = '<div class="photo-preview-text">📷</div>';
+            }
+        }
+
+        function filterMembers() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const course = document.getElementById('courseFilter').value;
+            const region = document.getElementById('regionFilter').value;
+            const industry = document.getElementById('industryFilter').value;
+
+            filteredMembers = members.filter(member => {
+                const matchSearch = member.name.toLowerCase().includes(search) ||
+                                   member.company.toLowerCase().includes(search) ||
+                                   member.role.toLowerCase().includes(search);
+                const matchCourse = !course || member.course === course;
+                const matchRegion = !region || member.address.includes(region);
+                const matchIndustry = !industry || member.industry === industry;
+
+                return matchSearch && matchCourse && matchRegion && matchIndustry;
+            });
+
+            updateActiveFilters();
+            currentIndex = 0;
+            updateDisplay();
+            displayContent();
+        }
+
+        function updateActiveFilters() {
+            const container = document.getElementById('activeFilters');
+            container.innerHTML = '';
+
+            const filters = [
+                {id: 'courseFilter', label: '기수'},
+                {id: 'regionFilter', label: '지역'},
+                {id: 'industryFilter', label: '업종'}
+            ];
+
+            filters.forEach(filter => {
+                const value = document.getElementById(filter.id).value;
+                if (value) {
+                    const tag = document.createElement('div');
+                    tag.className = 'filter-tag';
+                    tag.innerHTML = `${filter.label}: ${value} <button class="filter-remove" onclick="removeFilter('${filter.id}')">×</button>`;
+                    container.appendChild(tag);
+                }
+            });
+        }
+
+        function removeFilter(filterId) {
+            document.getElementById(filterId).value = '';
+            filterMembers();
+        }
+
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('courseFilter').value = '';
+            document.getElementById('regionFilter').value = '';
+            document.getElementById('industryFilter').value = '';
+            filterMembers();
+        }
+
+        function setView(view) {
+            currentView = view;
+            document.getElementById('cardViewBtn').classList.toggle('active', view === 'card');
+            document.getElementById('listViewBtn').classList.toggle('active', view === 'list');
+            updateDisplay();
+            displayContent();
+        }
+
+        function updateDisplay() {
+            document.getElementById('totalCount').textContent = members.length;
+            document.getElementById('filteredCount').textContent = filteredMembers.length;
+            document.getElementById('totalPages').textContent = Math.max(1, filteredMembers.length);
+            document.getElementById('currentPage').textContent = filteredMembers.length > 0 ? currentIndex + 1 : 0;
+
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (currentView === 'card') {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+
+                if (currentIndex >= filteredMembers.length) {
+                    currentIndex = Math.max(0, filteredMembers.length - 1);
+                }
+
+                if (currentIndex <= 0 || filteredMembers.length <= 1) {
+                    prevBtn.disabled = true;
+                    prevBtn.style.opacity = '0.5';
+                } else {
+                    prevBtn.disabled = false;
+                    prevBtn.style.opacity = '1';
+                }
+
+                if (currentIndex >= filteredMembers.length - 1 || filteredMembers.length <= 1) {
+                    nextBtn.disabled = true;
+                    nextBtn.style.opacity = '0.5';
+                } else {
+                    nextBtn.disabled = false;
+                    nextBtn.style.opacity = '1';
+                }
+            } else {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            }
+        }
+
+        function displayContent() {
+            const content = document.getElementById('content');
+
+            if (filteredMembers.length === 0) {
+                content.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <div>검색 결과가 없습니다</div>
+                    </div>
+                `;
+                return;
+            }
+
+            if (currentView === 'card') {
+                displayCard();
+            } else {
+                displayList();
+            }
+        }
+
+        function displayCard() {
+            const member = filteredMembers[currentIndex];
+            const content = document.getElementById('content');
+
+            content.innerHTML = `
+                <div class="member-card">
+                    <div class="card-header">
+                        <div class="member-photo" onclick="editPhoto()">
+                            ${member.photo ?
+                                `<img src="${member.photo}" alt="${member.name}">` :
+                                member.name.charAt(0)
+                            }
+                            <div class="photo-upload-overlay">
+                                📷<br>사진 수정
+                            </div>
+                        </div>
+                        <div class="member-name">${member.name}</div>
+                        <div class="member-name-en">${member.nameEn || ''}</div>
+                        ${member.role ? `<div class="member-role">${member.role}</div>` : ''}
+                    </div>
+                    <div class="card-body">
+                        <div class="info-grid">
+                            <div class="info-section">
+                                <div class="info-title">개인정보</div>
+                                <div class="info-item">
+                                    <span class="info-label">기수</span>
+                                    <span class="info-value">${member.course}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">전화</span>
+                                    <span class="info-value">${member.mobile || '-'}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">이메일</span>
+                                    <span class="info-value">
+                                        ${member.email ? `<a href="mailto:${member.email}" class="contact-link">${member.email}</a>` : '-'}
+                                    </span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">주소</span>
+                                    <span class="info-value">${member.address || '-'}</span>
+                                </div>
+                            </div>
+                            <div class="info-section">
+                                <div class="info-title">회사정보</div>
+                                <div class="info-item">
+                                    <span class="info-label">회사</span>
+                                    <span class="info-value">${member.company}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">직위</span>
+                                    <span class="info-value">${member.title || '-'}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">부서</span>
+                                    <span class="info-value">${member.department || '-'}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">업종</span>
+                                    <span class="info-value">${member.industry}</span>
+                                </div>
+                                ${member.website ? `
+                                <div class="info-item">
+                                    <span class="info-label">웹사이트</span>
+                                    <span class="info-value">
+                                        <a href="${member.website}" target="_blank" class="website-link">${member.website}</a>
+                                    </span>
+                                </div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function displayList() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="member-list">
+                    ${filteredMembers.map((member, index) => `
+                        <div class="list-item" onclick="selectMember(${index})">
+                            <div class="list-photo">
+                                ${member.photo ?
+                                    `<img src="${member.photo}" alt="${member.name}">` :
+                                    member.name.charAt(0)
+                                }
+                            </div>
+                            <div class="list-info">
+                                <div class="list-name">${member.name} (${member.role})</div>
+                                <div class="list-company">${member.company} ${member.title ? `• ${member.title}` : ''}</div>
+                                <div class="list-meta">${member.course} • ${member.industry} • ${member.mobile || '연락처 없음'}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function selectMember(index) {
+            currentIndex = index;
+            setView('card');
+        }
+
+        function nextMember() {
+            console.log('다음 버튼 클릭됨', currentIndex, 'of', filteredMembers.length);
+            if (filteredMembers.length > 1 && currentIndex < filteredMembers.length - 1) {
+                currentIndex++;
+                console.log('새 인덱스:', currentIndex);
+                updateDisplay();
+                displayCard();
+                showToast(`${filteredMembers[currentIndex].name} (${currentIndex + 1}/${filteredMembers.length})`, 'success');
+            }
+        }
+
+        function prevMember() {
+            console.log('이전 버튼 클릭됨', currentIndex);
+            if (filteredMembers.length > 1 && currentIndex > 0) {
+                currentIndex--;
+                console.log('새 인덱스:', currentIndex);
+                updateDisplay();
+                displayCard();
+                showToast(`${filteredMembers[currentIndex].name} (${currentIndex + 1}/${filteredMembers.length})`, 'success');
+            }
+        }
+
+        function openModal() {
+            editingMember = null;
+            document.querySelector('.modal-title').textContent = '원우 추가';
+            clearForm();
+
+            const formGroups = document.querySelectorAll('.form-group, .form-row');
+            formGroups.forEach(group => group.style.display = 'block');
+            document.querySelector('.photo-upload-section').style.display = 'block';
+
+            showModal();
+        }
+
+        function editMember() {
+            if (filteredMembers.length === 0) {
+                showToast('수정할 회원이 없습니다.', 'error');
+                return;
+            }
+
+            editingMember = filteredMembers[currentIndex];
+            console.log('수정할 회원:', editingMember);
+            document.querySelector('.modal-title').textContent = '정보 수정';
+            fillForm(editingMember);
+
+            const formGroups = document.querySelectorAll('.form-group, .form-row');
+            formGroups.forEach(group => group.style.display = 'block');
+            document.querySelector('.photo-upload-section').style.display = 'block';
+
+            showModal();
+        }
+
+        function editPhoto() {
+            if (filteredMembers.length === 0) return;
+
+            editingMember = filteredMembers[currentIndex];
+            document.querySelector('.modal-title').textContent = '사진 수정';
+            fillForm(editingMember);
+
+            const formGroups = document.querySelectorAll('.form-group, .form-row');
+            formGroups.forEach(group => group.style.display = 'none');
+            document.querySelector('.photo-upload-section').style.display = 'block';
+
+            showModal();
+        }
+
+        function showModal() {
+            const modal = document.getElementById('addModal');
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('addModal').classList.remove('show');
+            editingMember = null;
+        }
+
+        function clearForm() {
+            document.getElementById('memberCourse').value = '';
+            document.getElementById('memberName').value = '';
+            document.getElementById('memberNameEn').value = '';
+            document.getElementById('memberCompany').value = '';
+            document.getElementById('memberTitle').value = '';
+            document.getElementById('memberMobile').value = '';
+            document.getElementById('memberEmail').value = '';
+            document.getElementById('memberAddress').value = '';
+            document.getElementById('memberWebsite').value = '';
+
+            currentPhoto = null;
+            updatePhotoPreview();
+            const photoInput = document.getElementById('photoInput');
+            if (photoInput) {
+                photoInput.value = '';
+            }
+        }
+
+        function fillForm(member) {
+            console.log('폼 채우기:', member);
+            document.getElementById('memberCourse').value = member.course || '';
+            document.getElementById('memberName').value = member.name || '';
+            document.getElementById('memberNameEn').value = member.nameEn || '';
+            document.getElementById('memberCompany').value = member.company || '';
+            document.getElementById('memberTitle').value = member.title || '';
+            document.getElementById('memberMobile').value = member.mobile || '';
+            document.getElementById('memberEmail').value = member.email || '';
+            document.getElementById('memberAddress').value = member.address || '';
+            document.getElementById('memberWebsite').value = member.website || '';
+
+            currentPhoto = member.photo || null;
+            updatePhotoPreview();
+        }
+
+        function saveMember() {
+            const course = document.getElementById('memberCourse').value.trim();
+            const name = document.getElementById('memberName').value.trim();
+            const company = document.getElementById('memberCompany').value.trim();
+
+            if (!course || !name || !company) {
+                showToast('필수 항목을 입력해주세요.', 'error');
+                return;
+            }
+
+            // Base64로 변환된 currentPhoto를 그대로 저장
+            const memberData = {
+                course: course,
+                name: name,
+                nameEn: document.getElementById('memberNameEn').value.trim(),
+                company: company,
+                title: document.getElementById('memberTitle').value.trim(),
+                mobile: document.getElementById('memberMobile').value.trim(),
+                email: document.getElementById('memberEmail').value.trim(),
+                address: document.getElementById('memberAddress').value.trim(),
+                website: document.getElementById('memberWebsite').value.trim(),
+                industry: getIndustry(company),
+                role: document.getElementById('memberTitle').value.trim() || '회원',
+                photo: currentPhoto || null  // 여기서 Base64가 저장됩니다
+            };
+
+            if (editingMember && editingMember.id) {
+                // 수정 모드
+                const index = members.findIndex(m => m.id === editingMember.id);
+                if (index !== -1) {
+                    members[index] = { ...members[index], ...memberData };
+                    showToast(`${memberData.name} 정보가 수정되었습니다.`);
+                } else {
+                    showToast('회원을 찾을 수 없습니다.', 'error');
+                    return;
+                }
+            } else {
+                // 새 회원 추가 모드
+                const newId = members.length ? Math.max(...members.map(m => m.id)) + 1 : 1;
+                const newMember = { id: newId, products: [], interests: [], department: '', ...memberData };
+                members.push(newMember);
+                showToast(`${memberData.name} 원우가 추가되었습니다.`);
+            }
+
+            // 화면 갱신 및 모달 닫기
+            filterMembers();
+            closeModal();
+
+            // 편집용 초기화
+            editingMember = null;
+            currentPhoto = null;
+            const photoInput = document.getElementById('photoInput');
+            if (photoInput) photoInput.value = '';
+            const photoPreview = document.getElementById('photoPreview');
+            if (photoPreview) photoPreview.innerHTML = '<div class="photo-preview-text">📷</div>';
+        }
+        function getIndustry(company) {
+            const companyLower = company.toLowerCase();
+            if (companyLower.includes('smv') || companyLower.includes('juno') || companyLower.includes('tel') ||
+                companyLower.includes('screen') || companyLower.includes('smart') || companyLower.includes('동진') ||
+                companyLower.includes('enf') || companyLower.includes('신성') || companyLower.includes('원익')) return '반도체';
+            if (companyLower.includes('yc') || companyLower.includes('화학')) return '화학약품';
+            if (companyLower.includes('unist') || companyLower.includes('교수') || companyLower.includes('선생')) return '교육';
+            return '반도체';
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        document.getElementById('addModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
